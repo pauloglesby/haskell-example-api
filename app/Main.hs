@@ -6,9 +6,7 @@ import System.Environment (getArgs)
 import Data.Maybe (listToMaybe)
 
 import Wiggly.Server (app)
-
 import Wiggly.Db.Connection (locateDbConnectionInfo)
-
 import Wiggly.Data.Application (Config(..))
 
 configuration :: IO Config

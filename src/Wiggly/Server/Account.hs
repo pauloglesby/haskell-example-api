@@ -1,14 +1,7 @@
 {-# LANGUAGE Arrows #-}
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Wiggly.Server.Account
        (
@@ -25,6 +18,7 @@ import Control.Monad.Reader
 import Data.Either (either)
 import Data.Int (Int64)
 import Data.Maybe (catMaybes)
+import Data.Profunctor.Product.Default (Default)
 import Servant
 import qualified Data.Aeson as J
 import qualified Data.ByteString.Builder as B
@@ -37,11 +31,15 @@ import qualified Opaleye as DB
 import Wiggly.Api.Account
 import Wiggly.Data.Account
 import Wiggly.Data.Application
+import Wiggly.Db.Util(showSql)
 
 makeFields ''AccountT -- TODO: lens import
 
 log :: String -> AppM ()
 log s = liftIO $ putStrLn s
+
+logQuery :: Default DB.Unpackspec a a => DB.Query a -> AppM ()
+logQuery q = log $ showSql q
 
 accounts :: AppM [Account]
 accounts = do
@@ -107,6 +105,7 @@ filterAccounts filterSpec = do
   connInfo <- asks dbConnectInfo
   conn <- liftIO $ PGS.connect connInfo
   let query = filterAccountQuery filterSpec
+  logQuery query
   result <- liftIO $ X.try $ runAccountQuery conn query
   either ioErrorsToServantErrors return result
 

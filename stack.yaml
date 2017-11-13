@@ -4,8 +4,8 @@ packages:
 - '.'
 extra-deps:
 - http-api-data-0.3.3
-- postgresql-simple-migration-0.1.7.0
+- postgresql-simple-migration-0.1.11.0
 - servant-0.9.1.1
 - servant-docs-0.9.1.1
 - servant-server-0.9.1.1
-resolver: lts-7.11
+resolver: lts-9.13

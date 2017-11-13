@@ -1,13 +1,6 @@
-{-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE FunctionalDependencies #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE TemplateHaskell #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE FlexibleInstances #-}
 
 module Wiggly.Server.Doc
        (
@@ -22,6 +15,7 @@ import qualified Data.Text.Lazy as TL
 
 import Wiggly.Api.Application
 import Wiggly.Data.Account
+import Wiggly.Data.Car
 import Wiggly.Data.Pong
 import Wiggly.Data.Application
 
@@ -51,6 +45,22 @@ instance ToSample UpdateAccount where
 instance ToSample AccountFilter where
   toSamples _ = singleSample f
     where f = AccountFilter (Just "william") Nothing Nothing
+
+instance ToSample Car where
+  toSamples _ = singleSample r
+    where r = Car 42 23 "Honda" "Civic" "Yellow" "Petrol" 230 sampleDate sampleDate
+
+instance ToSample CreateCar where
+  toSamples _ = singleSample r
+    where r = CreateCar 23 "Honda" "Civic" "Yellow" "Petrol" 230
+
+instance ToSample UpdateCar where
+  toSamples _ = singleSample r
+    where r = UpdateCar Nothing (Just "Red") Nothing Nothing
+
+instance ToSample CarFilter where
+  toSamples _ = singleSample f
+    where f = CarFilter (Just ["Jaguar", "Toyota"]) Nothing (Just ["Orange"]) Nothing Nothing Nothing
 
 instance ToCapture (Capture "id" Int) where
   toCapture _ = DocCapture "id" "ID of resource"

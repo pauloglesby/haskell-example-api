@@ -7,6 +7,7 @@ module Wiggly.Api.Application
        , SystemAPI
        , DocAPI
        , AccountAPI
+       , CarAPI
        ) where
 
 import Servant
@@ -14,5 +15,6 @@ import Servant
 import Wiggly.Api.System
 import Wiggly.Api.Doc
 import Wiggly.Api.Account
+import Wiggly.Api.Car
 
-type ApplicationAPI = SystemAPI :<|> DocAPI :<|> AccountAPI
+type ApplicationAPI = SystemAPI :<|> DocAPI :<|> AccountAPI :<|> CarAPI

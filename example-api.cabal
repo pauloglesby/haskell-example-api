@@ -13,10 +13,16 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Wiggly.Data.Application Wiggly.Data.Pong Wiggly.Data.Account Wiggly.Data.Markdown Wiggly.Api.System Wiggly.Api.Doc Wiggly.Api.Account Wiggly.Api.Application Wiggly.Server.System Wiggly.Server.Doc Wiggly.Server.Account Wiggly.Server Wiggly.Util.Json Wiggly.Db.Connection
+  exposed-modules: Wiggly.Data.Application Wiggly.Data.Pong Wiggly.Data.Account Wiggly.Data.Car Wiggly.Data.Markdown Wiggly.Api.System Wiggly.Api.Doc Wiggly.Api.Account Wiggly.Api.Car Wiggly.Api.Application Wiggly.Server.System Wiggly.Server.Doc Wiggly.Server.Account Wiggly.Server.Car Wiggly.Server Wiggly.Util.Json Wiggly.Db.Connection Wiggly.Db.Util
   build-depends:       base >= 4.7 && < 5
+                     , base-compat
+                     , safe-exceptions
                      , servant-server >= 0.9.1
+                     , servant-docs >= 0.9.1
+                     , mtl
+                     , either
                      , aeson
+                     , aeson-compat
                      , blaze-html
                      , blaze-markup
                      , directory
@@ -26,22 +32,13 @@ library
                      , bytestring
                      , time
                      , string-conversions
-                     , either
-                     , mtl
-                     , attoparsec
-                     , base-compat
-                     , aeson-compat
                      , lucid
                      , opaleye
                      , product-profunctors
                      , postgresql-simple
                      , postgresql-simple-url
                      , lens
-                     , hashmap
                      , text
-                     , hashmap
-                     , safe-exceptions
-                     , servant-docs >= 0.9.1
   default-language:    Haskell2010
 
 executable example-api
