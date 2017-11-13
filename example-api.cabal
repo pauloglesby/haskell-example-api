@@ -1,0 +1,82 @@
+name:                example-api
+version:             0.1.0.0
+synopsis:            Example API
+description:         Please see README.md
+homepage:            https://github.com/wiggly/haskell-example-api
+author:              Nigel Anthony Rantor
+maintainer:          wiggly@wiggly.org
+copyright:           2016 Nigel Anthony Rantor
+category:            Web
+build-type:          Simple
+-- extra-source-files:
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Wiggly.Data.Application Wiggly.Data.Pong Wiggly.Data.Account Wiggly.Data.Markdown Wiggly.Api.System Wiggly.Api.Doc Wiggly.Api.Account Wiggly.Api.Application Wiggly.Server.System Wiggly.Server.Doc Wiggly.Server.Account Wiggly.Server Wiggly.Util.Json Wiggly.Db.Connection
+  build-depends:       base >= 4.7 && < 5
+                     , servant-server >= 0.9.1
+                     , aeson
+                     , blaze-html
+                     , blaze-markup
+                     , directory
+                     , warp
+                     , wai
+                     , http-media
+                     , bytestring
+                     , time
+                     , string-conversions
+                     , either
+                     , mtl
+                     , attoparsec
+                     , base-compat
+                     , aeson-compat
+                     , lucid
+                     , opaleye
+                     , product-profunctors
+                     , postgresql-simple
+                     , postgresql-simple-url
+                     , lens
+                     , hashmap
+                     , text
+                     , hashmap
+                     , safe-exceptions
+                     , servant-docs >= 0.9.1
+  default-language:    Haskell2010
+
+executable example-api
+  hs-source-dirs:      app
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , example-api
+                     , servant-server >= 0.9.1
+                     , warp
+                     , wai
+                     , time
+                     , postgresql-simple
+  default-language:    Haskell2010
+
+executable example-migrate
+  hs-source-dirs:      app
+  main-is:             Migrate.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base
+                     , example-api
+                     , time
+                     , postgresql-simple
+                     , postgresql-simple-migration
+  default-language:    Haskell2010
+
+test-suite example-api-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  build-depends:       base
+                     , example-api
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+
+source-repository head
+  type:     git
+  location: https://github.com/wiggly/haskell-example-api
